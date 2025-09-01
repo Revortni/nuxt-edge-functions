@@ -3,8 +3,7 @@ import { openai } from '@ai-sdk/openai';
 
 export const maxDuration = 5;
 
-// This method must be named GET
-export async function GET() {
+export default defineEventHandler(() => {
   // Make a request to OpenAI's API based on
   // a placeholder prompt
   const response = streamText({
@@ -16,5 +15,5 @@ export async function GET() {
     headers: {
       'Content-Type': 'text/event-stream',
     },
-  });
-}
+  })
+})
