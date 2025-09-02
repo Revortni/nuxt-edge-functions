@@ -1,5 +1,5 @@
 export const runtime = 'nodejs';
-export const maxDuration = 1;
+export const maxDuration = 1; //didn't work
 
 export default defineEventHandler(async () => {
   const res = await new Promise<{ message: string }>((res) => {
