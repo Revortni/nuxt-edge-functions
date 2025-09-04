@@ -1,30 +1,6 @@
 import { createReadStream } from 'fs';
+import { sleep } from '~~/server/_utils/time';
 
-// export default defineEventHandler(() => {
-//   const filename = '/Users/rojitkhayargoli/Home/personal/edge-functions/edge-function/server/api/content.txt'
-//   try {
-//     const stream = createReadStream(filename, { encoding: 'utf8', decod });
-//     const readableStream = new ReadableStream({
-//       async start(controller) {
-//         stream.on('data', (chunk) => {
-//           console.log("Chunk loaded", { chunk })
-//           controller.enqueue(chunk)
-//         });
-//         stream.on('end', () => controller.close());
-//         stream.on('error', (err) => controller.error(err));
-//       },
-//     });
-//     return new Response(readableStream, {
-//       headers: {
-//         'Content-Type': 'text/event-stream',
-//         'Connection': 'keep-alive',
-//       },
-//     });
-//   } catch (error) {
-//     console.error('Error reading file:', error);
-//     throw error;
-//   }
-// })
 export default defineEventHandler(() => {
   const filename = '/Users/rojitkhayargoli/Home/personal/edge-functions/edge-function/server/api/content.txt'
   try {
@@ -32,12 +8,22 @@ export default defineEventHandler(() => {
     const stream = createReadStream(filename);
     const readableStream = new ReadableStream({
       async start(controller) {
-        stream.on('data', (chunk) => {
-          const decodedChunk = decoder.decode(  Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk), { stream: true });
-          controller.enqueue(decodedChunk);
+        stream.on('data', async (chunk) => {
+          stream.pause();
+          const decodedChunk = decoder.decode(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk), { stream: true });
+          console.log({ decodedChunk, isBuffer: Buffer.isBuffer(chunk) })
+          for (const char of decodedChunk) {
+            controller.enqueue(char);
+            await sleep(0.01)
+          }
+          stream.resume()
         });
         stream.on('end', () => {
-          decoder.decode(); // flush the decoder
+          //  flush of the decoder
+          const finalChunk = decoder.decode();
+          if (finalChunk) {
+            controller.enqueue(finalChunk);
+          }
           controller.close();
         });
         stream.on('error', (err) => controller.error(err));
