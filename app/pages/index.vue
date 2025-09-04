@@ -10,23 +10,25 @@
           </option>
         </select>
       </div>
-      <p class="text-gray-400 mb-6 text-center">
+      <p class="text-gray-400 mb-6">
         Click the button to start the stream. The text will appear below as it's generated.
       </p>
 
-      <div class="flex justify-center mb-6">
-        <button @click="() => refetch()" :disabled="isFetching"
-          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          <span v-if="!isFetching">Start Stream</span>
+      <form class="flex justify-center mb-6">
+        <input type="text" v-model="userInput" v-if="streamType === 'stream-data'"
+          class="mr-2 w-full text-blue-950 px-2" placeholder="What would you like to chat about?" :disabled="isPending">
+        <button type="submit" @click="handleSubmit" :disabled="isPending"
+          class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+          <span v-if="!isPending">Start Stream</span>
           <span v-else>Streaming...</span>
         </button>
-      </div>
+      </form>
 
       <div ref="contentContainer"
         class="flex bg-gray-700 h-[calc(65vh)] rounded-xl p-4 min-h-[200px] border border-gray-600 overflow-y-auto">
         <template v-if="!content">
           <p v-if="isError" class="text-red-400 text-center italic">Error: {{ error?.message }}</p>
-          <p v-else-if="isFetching" class="text-gray-500 text-center italic">Waiting for stream data...</p>
+          <p v-else-if="isPending" class="text-gray-500 text-center italic">Waiting for stream data...</p>
         </template>
         <stream-display v-else :text="content" placeholder-text="Waiting on you" />
       </div>
@@ -36,22 +38,37 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useQuery } from '@tanstack/vue-query';
+import { useMutation, } from '@tanstack/vue-query';
+import type { StreamOptions } from '@/utils/http';
 
 const content = ref('');
 const contentContainer = ref();
-const streamOptions = [
-  { value: 'stream-file', label: 'Stream File', default: true },
-  { value: 'stream-array', label: 'Stream Array' },
-  { value: 'stream-data', label: 'Stream Data' },
+const streamOptions: StreamOptions[] = [
+  { value: 'stream-file', label: 'Stream File', requestType: 'GET' },
+  { value: 'stream-array', label: 'Stream Array', requestType: 'GET' },
+  { value: 'stream-data', label: 'Stream Data', default: true, requestType: 'POST' },
 ];
 const streamType = ref(streamOptions.find(option => option.default)?.value);
+const userInput = ref('');
+watch(streamType, () => {
+  userInput.value = '';
+});
 
-async function fetchStream() {
+function handleSubmit(e: MouseEvent) {
+  e.preventDefault();
+  if (userInput.value.trim() === '') {
+    return
+  }
+  mutate()
+}
+
+async function fetchStream(userInputForStream?: string) {
   content.value = ''
+  const streamOptionRequestType = streamOptions.find(option => option.default)?.requestType ?? 'GET'
   const response = await $fetch<ReadableStream>(`/api/${streamType.value}`, {
-    method: 'GET',
+    method: streamOptionRequestType,
     responseType: 'stream',
+    body: { userInput: userInputForStream?.trim() }
   })
 
   // Create a new ReadableStream from the response with TextDecoderStream to get the data as text
@@ -65,13 +82,12 @@ async function fetchStream() {
     }
     content.value += value
   }
+  userInput.value = ''
 
   return content.value
 };
 
-const { refetch, isFetching, isError, error } = useQuery({
-  queryKey: ['gemini-stream'],
-  queryFn: fetchStream,
-  enabled: false, // Prevents the query from running automatically on component mount
+const { isPending, isError, error, mutate } = useMutation({
+  mutationFn: () => fetchStream(userInput.value),
 });
 </script>
