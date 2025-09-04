@@ -63,7 +63,6 @@ async function fetchStream() {
     if (done) {
       break
     }
-    console.log("Received chunk:", value)
     content.value += value
   }
 

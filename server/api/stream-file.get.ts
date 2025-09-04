@@ -11,7 +11,6 @@ export default defineEventHandler(() => {
         stream.on('data', async (chunk) => {
           stream.pause();
           const decodedChunk = decoder.decode(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk), { stream: true });
-          console.log({ decodedChunk, isBuffer: Buffer.isBuffer(chunk) })
           for (const char of decodedChunk) {
             controller.enqueue(char);
             await sleep(0.01)

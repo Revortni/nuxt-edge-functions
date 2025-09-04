@@ -32,14 +32,12 @@ function typeText(text: string, textToShow: string) {
 }
 
 function startTyping() {
-  console.log("Start typing", { text: props.text, currentText: textShown.value })
   typeText(props.text, textShown.value)
 }
 
 watch(() => props.text, (newText) => {
   if (newText.length > textShown.value.length) {
     // If the new text is longer, continue typing
-    console.log("New text received, continue typing", { newText, currentText: textShown.value })
     startTyping()
   }
 }, {
