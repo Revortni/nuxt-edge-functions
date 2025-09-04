@@ -1,7 +1,15 @@
 <template>
   <div class="text-gray-200 flex flex-col items-center p-8 font-sans">
     <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
-      <h1 class="text-3xl font-bold mb-4 text-center text-indigo-400">Streamed Data from Gemini</h1>
+      <div class="flex justify-between">
+        <h1 class="text-3xl font-bold mb-4 text-indigo-400">Streamed Data from Gemini</h1>
+        <select id="streamType" v-model="streamType"
+          class="bg-gray-700 text-white rounded-md h-10 px-2 py-2 ml-4 border border-gray-600">
+          <option v-for="option in streamOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
       <p class="text-gray-400 mb-6 text-center">
         Click the button to start the stream. The text will appear below as it's generated.
       </p>
@@ -20,7 +28,7 @@
           <p v-if="isError" class="text-red-400 text-center italic">Error: {{ error?.message }}</p>
           <p v-else-if="isFetching" class="text-gray-500 text-center italic">Waiting for stream data...</p>
         </template>
-        <stream-display v-else :text="content" placeholder-text="Waiting on you" @onContentShow="scrollToBottom" />
+        <stream-display v-else :text="content" placeholder-text="Waiting on you" />
       </div>
     </div>
   </div>
@@ -32,15 +40,16 @@ import { useQuery } from '@tanstack/vue-query';
 
 const content = ref('');
 const contentContainer = ref();
-
-function scrollToBottom() {
-  if (contentContainer.value) {
-    contentContainer.value.scrollTop = contentContainer.value.scrollHeight;
-  }
-}
+const streamOptions = [
+  { value: 'stream-file', label: 'Stream File', default: true },
+  { value: 'stream-array', label: 'Stream Array' },
+  { value: 'stream-data', label: 'Stream Data' },
+];
+const streamType = ref(streamOptions.find(option => option.default)?.value);
 
 async function fetchStream() {
-  const response = await $fetch<ReadableStream>('/api/stream', {
+  content.value = ''
+  const response = await $fetch<ReadableStream>(`/api/${streamType.value}`, {
     method: 'GET',
     responseType: 'stream',
   })
@@ -56,9 +65,6 @@ async function fetchStream() {
     }
     console.log("Received chunk:", value)
     content.value += value
-    await new Promise((resolve) => {
-      setTimeout(resolve, 3000)
-    })
   }
 
   return content.value

@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-const typeDelay = { min: 15, max: 20 }
+const typeDelay = { min: 30, max: 38 }
 const props = defineProps({
   text: {
     type: String,
