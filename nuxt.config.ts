@@ -1,13 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
-  tailwindcss: {
-    exposeConfig: true,
-    viewer: true,
-    // and more...
-  },
   routeRules: {
     '/': { prerender: true },
     // user dashboard renders only on client-side
@@ -15,8 +9,19 @@ export default defineNuxtConfig({
     // Add cors headers on API routes
     '/api/**': { cors: true },
     // Redirects legacy urls
-    '/old': { redirect: '/new' }
-  }
+    '/old': { redirect: '/new' },
+  },
+  compatibilityDate: '2025-07-15',
+  eslint: {
+    config: {
+      stylistic: true,
+    },
+  },
+  tailwindcss: {
+    exposeConfig: true,
+    viewer: true,
+    // and more...
+  },
   // use if pure client side rendering
   // hooks: {
   //   'prerender:routes'({ routes }) {
