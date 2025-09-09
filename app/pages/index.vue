@@ -1,5 +1,5 @@
 <template>
-  <main class="p-8 flex gap-4 justify-center items-start">
+  <main class="p-8 flex gap-4 justify-center items-start ml-29">
     <div class="text-gray-200 flex flex-col items-center font-sans">
       <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
         <div class="flex justify-between">

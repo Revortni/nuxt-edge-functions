@@ -1,0 +1,7 @@
+@theme {
+  --spacing: 4px; 
+}
+
+.dummy{
+  padding: 1px;
+}

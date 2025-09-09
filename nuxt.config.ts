@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
   devtools: { enabled: true },
+  css: [
+    '~/assets/css/style.css',
+  ],
   routeRules: {
     '/': { prerender: true },
     // user dashboard renders only on client-side

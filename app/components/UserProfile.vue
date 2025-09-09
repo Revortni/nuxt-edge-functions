@@ -70,8 +70,5 @@ import type { User } from '~/components/types/user-profile.types'
 
 const { data: user, pending, error } = await useFetch<User>(() => '/api/me', {
   method: 'GET',
-  onResponse(res) {
-    console.log(res, 'ReSPONSE')
-  },
 })
 </script>
