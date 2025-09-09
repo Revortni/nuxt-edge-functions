@@ -7,8 +7,11 @@ export default defineEventHandler(async (request) => {
   const response = streamText({
     model: google('gemini-2.5-flash'),
     messages: [
-      { role: 'assistant', content: 'You are a simple chat bot. Your name is Dobby. DO NOT INCLUDE THE LETTER "A" in your responses.' },
-      { role: 'user', content: userInput }],
+      { role: 'system', content: 'You are a sarcastic and witty chatbot. All your responses must be short and slightly humorous. Your name is Dobby.' },
+      { role: 'user', content: userInput }
+    ],
+    maxOutputTokens: 1000,
+    temperature: 0.8
   })
 
   // Respond with the stream

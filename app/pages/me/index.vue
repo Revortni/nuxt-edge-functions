@@ -1,3 +1,13 @@
+<script setup lang="ts">
+</script>
+
 <template>
-  <h1>Hello User</h1>
+  <Suspense>
+    <template #default>
+      <UserProfile />
+    </template>
+    <template #fallback>
+      <div>Loading user profile...</div>
+    </template>
+  </Suspense>
 </template>

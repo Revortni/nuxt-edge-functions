@@ -1,74 +1,96 @@
 <template>
-  <div class="text-gray-200 flex flex-col items-center p-8 font-sans">
-    <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
-      <div class="flex justify-between">
-        <h1 class="text-3xl font-bold mb-4 text-indigo-400">
-          Streamed Data from Gemini
-        </h1>
-        <select
-          id="streamType"
-          v-model="streamType"
-          class="bg-gray-700 text-white rounded-md h-10 px-2 py-2 ml-4 border border-gray-600"
-        >
-          <option
-            v-for="option in streamOptions"
-            :key="option.value"
-            :value="option.value"
+  <main class="p-8 flex gap-4 justify-center items-start">
+    <div class="text-gray-200 flex flex-col items-center font-sans">
+      <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
+        <div class="flex justify-between">
+          <h1 class="text-3xl font-bold mb-4 text-indigo-400">
+            Streamed Data
+          </h1>
+          <select
+            id="streamType"
+            v-model="streamType"
+            class="bg-gray-700 text-white rounded-md h-10 px-2 py-2 ml-4 border border-gray-600"
           >
-            {{ option.label }}
-          </option>
-        </select>
-      </div>
-      <p class="text-gray-400 mb-6">
-        Click the button to start the stream. The text will appear below as it's generated.
-      </p>
+            <option
+              v-for="option in streamOptions"
+              :key="option.value"
+              :value="option.value"
+            >
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
 
-      <form class="flex justify-center mb-6">
-        <input
-          v-if="streamType === 'stream-data'"
-          v-model="userInput"
-          type="text"
-          class="mr-2 w-full text-blue-950 px-2"
-          placeholder="What would you like to chat about?"
-          :disabled="isPending"
-        >
-        <button
-          type="submit"
-          :disabled="isPending"
-          class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          @click="handleSubmit"
-        >
-          <span v-if="!isPending">Start Stream</span>
-          <span v-else>Streaming...</span>
-        </button>
-      </form>
+        <form class="flex justify-center mb-6">
+          <input
+            v-if="streamType === 'stream-data'"
+            v-model="userInput"
+            type="text"
+            class="mr-2 w-full text-blue-950 px-2 rounded-sm"
+            placeholder="What would you like to chat about?"
+            :disabled="isPending"
+          >
 
-      <div
-        ref="contentContainer"
-        class="flex bg-gray-700 h-[calc(65vh)] rounded-xl p-4 min-h-[200px] border border-gray-600 overflow-y-auto"
-      >
-        <template v-if="!content">
-          <p
-            v-if="isError"
-            class="text-red-400 text-center italic"
+          <button
+            type="submit"
+            :disabled="isPending"
+            class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            @click="handleSubmit"
           >
-            Error: {{ error?.message }}
-          </p>
-          <p
-            v-else-if="isPending"
-            class="text-gray-500 text-center italic"
-          >
-            Waiting for stream data...
-          </p>
-        </template>
-        <stream-display
-          v-else
-          :text="content"
-          placeholder-text="Waiting on you"
-        />
+            <span v-if="!isPending">Start Stream</span>
+            <span v-else>Streaming...</span>
+          </button>
+        </form>
+
+        <p class="text-gray-400 mb-6">
+          Click the button to start the stream. The text will appear below as it's generated.
+        </p>
+
+        <div
+          ref="contentContainer"
+          class="flex bg-gray-700 h-[calc(65vh)] rounded-xl p-4 min-h-[200px] border border-gray-600 overflow-y-auto"
+        >
+          <template v-if="!content">
+            <p
+              v-if="isError"
+              class="text-red-400 text-center italic"
+            >
+              Error: {{ error?.message }}
+            </p>
+            <p
+              v-else-if="isPending"
+              class="text-gray-500 text-center italic"
+            >
+              Waiting for stream data...
+            </p>
+          </template>
+          <stream-display
+            v-else
+            :text="content"
+            placeholder-text="Waiting on you"
+          />
+        </div>
       </div>
     </div>
-  </div>
+    <NuxtLink
+      to="/me"
+      class="flex gap-2 bg-slate-300 p-2 rounded-md w-50 items-center hover:cursor-pointer"
+    >
+      <div class="w-8 h-8 rounded-full overflow-hidden">
+        <img
+          src=""
+          alt="you"
+          class="object-contain bg-blue-200 "
+        >
+      </div>
+      <h3 class="text-gray-900">
+        Rojit
+        <span class="text-gray-700">
+          pro
+        </span>
+      </h3>
+    </NuxtLink>
+  </main>
 </template>
 
 <script setup lang="ts">
