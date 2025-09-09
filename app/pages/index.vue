@@ -78,7 +78,7 @@
     >
       <div class="w-8 h-8 rounded-full overflow-hidden">
         <img
-          src=""
+          src="/favicon.ico"
           alt="you"
           class="object-contain bg-blue-200 "
         >

@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 const typeDelay = { min: 30, max: 38 }
 const props = defineProps({
   text: {
@@ -45,12 +47,17 @@ function startTyping() {
   typeText(props.text, textShown.value)
 }
 
-watch(() => props.text, (newText) => {
-  if (newText.length > textShown.value.length) {
-    // If the new text is longer, continue typing
+// Only start typing on the client. Avoid running typing logic during SSR
+onMounted(() => {
+  if (props.text.length > textShown.value.length) {
     startTyping()
   }
-}, {
-  immediate: true,
+})
+
+// Continue typing when the incoming text changes on the client
+watch(() => props.text, (newText) => {
+  if (newText.length > textShown.value.length) {
+    startTyping()
+  }
 })
 </script>

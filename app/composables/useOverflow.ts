@@ -1,21 +1,24 @@
-const useOverflow = (contentContainer: Ref<HTMLDivElement>, content: Ref<string>) => {
+const useOverflow = (contentContainer: Ref<HTMLDivElement | undefined>, content: Ref<string>) => {
   const isOverflowing = ref<boolean>(false)
-  watch(content, () => {
-    // Use nextTick to ensure the DOM has updated with the new content
-    nextTick(() => {
-      if (contentContainer.value) {
-        const isOverflown = contentContainer.value.scrollHeight > contentContainer.value.clientHeight
-        isOverflowing.value = isOverflown
-      }
-    })
-  })
 
-  // Also check on initial mount
+  // Only measure layout on the client after mount
   onMounted(() => {
-    if (contentContainer.value) {
-      const isOverflown = contentContainer.value.scrollHeight > contentContainer.value.clientHeight
-      isOverflowing.value = isOverflown
+    const measure = () => {
+      nextTick(() => {
+        if (contentContainer.value) {
+          const isOverflown = contentContainer.value.scrollHeight > contentContainer.value.clientHeight
+          isOverflowing.value = isOverflown
+        }
+      })
     }
+
+    // Initial measure
+    measure()
+
+    // Re-measure when content changes
+    watch(content, () => {
+      measure()
+    })
   })
 
   return isOverflowing
