@@ -107,13 +107,16 @@ const streamOptions: StreamOptions[] = [
 ]
 const streamType = ref(streamOptions.find(option => option.default)?.value)
 const userInput = ref('')
+const fetchController = ref(new AbortController())
+
 watch(streamType, () => {
+  fetchController.value.abort()
   userInput.value = ''
 })
 
 function handleSubmit(e: MouseEvent) {
   e.preventDefault()
-  if (userInput.value.trim() === '') {
+  if (userInput.value.trim() === '' && streamType.value === 'stream-data') {
     return
   }
   mutate()
@@ -121,12 +124,27 @@ function handleSubmit(e: MouseEvent) {
 
 async function fetchStream(userInputForStream?: string) {
   content.value = ''
-  const streamOptionRequestType = streamOptions.find(option => option.default)?.requestType ?? 'GET'
-  const response = await $fetch<ReadableStream>(`/api/${streamType.value}`, {
-    method: streamOptionRequestType,
-    responseType: 'stream',
-    body: { userInput: userInputForStream?.trim() },
-  })
+
+  fetchController.value = new AbortController()
+  const controller = fetchController.value
+
+  const streamOptionRequestType = streamOptions.find(option => option.value == streamType.value)?.requestType ?? 'GET'
+  let response
+  if (streamOptionRequestType === 'POST') {
+    response = await $fetch<ReadableStream>(`/api/${streamType.value}`, {
+      method: 'POST',
+      responseType: 'stream',
+      body: { userInput: userInputForStream?.trim() },
+      signal: controller.signal,
+    })
+  }
+  else {
+    response = await $fetch<ReadableStream>(`/api/${streamType.value}`, {
+      method: 'GET',
+      responseType: 'stream',
+      signal: controller.signal,
+    })
+  }
 
   // Create a new ReadableStream from the response with TextDecoderStream to get the data as text
   const reader = response.pipeThrough(new TextDecoderStream()).getReader()
