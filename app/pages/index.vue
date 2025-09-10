@@ -98,6 +98,10 @@ import { ref } from 'vue'
 import { useMutation } from '@tanstack/vue-query'
 import type { StreamOptions } from '@/utils/http'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const content = ref('')
 const contentContainer = ref()
 const streamOptions: StreamOptions[] = [
