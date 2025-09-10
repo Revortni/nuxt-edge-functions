@@ -8,9 +8,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     authorizationParams: {
       redirect_uri: import.meta.client ? window.location.origin : '',
     }, // Adjust for your redirect URI
+    useRefreshTokens: true,
   })
 
-  if (import.meta.client) {
-    nuxtApp.vueApp.use(auth0)
-  }
+  nuxtApp.vueApp.use(auth0)
 })

@@ -108,10 +108,12 @@
 import { ref } from 'vue'
 import { useMutation } from '@tanstack/vue-query'
 import type { StreamOptions } from '@/utils/http'
+import { useAuth0 } from '@auth0/auth0-vue'
 
 definePageMeta({
   middleware: 'auth',
 })
+const auth0 = import.meta.client ? useAuth0() : undefined
 
 const content = ref('')
 const contentContainer = ref()
@@ -138,6 +140,7 @@ function handleSubmit(e: MouseEvent) {
 }
 
 function logout() {
+  auth0?.logout()
 }
 
 async function fetchStream(userInputForStream?: string) {
