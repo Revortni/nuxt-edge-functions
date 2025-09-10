@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+@tailwind base;
+@layer base {
+	:root {
+		--text-headline-h1: 1.5rem;
+		--font-weight-headline-h1: 700;
+		--spacing-headline-h1: 2rem;
+		--text-headline-h2: 1.25rem;
+		--font-weight-headline-h2: 700;
+		--spacing-headline-h2: 1.75rem;
+		--text-headline-h3: 1rem;
+		--font-weight-headline-h3: 700;
+		--spacing-headline-h3: 1.5rem;
+		--text-headline-h4: 1rem;
+		--font-weight-headline-h4: 400;
+		--spacing-headline-h4: 1.5rem;
+		--text-highlights-lg: 0.875rem;
+		--font-weight-highlights-lg: 600;
+		--spacing-highlights-lg: 1.25rem;
+		--text-highlights-md: 0.75rem;
+		--font-weight-highlights-md: 600;
+		--spacing-highlights-md: 1rem;
+		--text-body-xl: 1.25rem;
+		--font-weight-body-xl: 400;
+		--spacing-body-xl: 1.75rem;
+		--text-body-lg: 0.875rem;
+		--font-weight-body-lg: 400;
+		--spacing-body-lg: 1.25rem;
+		--text-body-md: 0.75rem;
+		--font-weight-body-md: 400;
+		--spacing-body-md: 1rem;
+		--text-body-oveline: 0.625rem;
+		--font-weight-body-oveline: 600;
+		--spacing-body-oveline: 0.75rem;
+		--text-body-caption: 0.5625rem;
+		--font-weight-body-caption: 400;
+		--spacing-body-caption: 0.75rem;
+		--text-button-lg: 0.875rem;
+		--font-weight-button-lg: 400;
+		--spacing-button-lg: 1.25rem;
+		--text-button-md: 0.75rem;
+		--font-weight-button-md: 400;
+		--spacing-button-md: 1rem;
+		
+		--font-sora: Sora;
+		--font-lato: Lato;
+
+		--shadow-focus: 0rem 0rem 0.25rem 0rem rgba(56, 58, 204, 0.4);
+		--shadow-light-up: 0rem -0.0625rem 0.125rem 0rem rgba(83, 113, 172, 0.08);
+		--shadow-light-down: 0rem 0.0625rem 0.125rem 0rem rgba(83, 113, 172, 0.08);
+		--shadow-medium-up: 0rem -0.0625rem 0.1875rem 0rem rgba(83, 113, 172, 0.2);
+		--shadow-medium-down: 0rem 0.0625rem 0.1875rem 0rem rgba(83, 113, 172, 0.2);
+		--shadow-dark-up: 0rem -0.125rem 0.25rem 0rem rgba(83, 113, 172, 0.2);
+		--shadow-dark-down: 0rem 0.125rem 0.25rem 0rem rgba(83, 113, 172, 0.2);
+	}
+}

@@ -1,5 +1,5 @@
 <template>
-  <main class="p-8 flex gap-4 justify-center items-start ml-29">
+  <main class="p-8 flex  gap-4 justify-center items-start ml-29">
     <div class="text-gray-200 flex flex-col items-center font-sans">
       <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
         <div class="flex justify-between">
@@ -72,24 +72,35 @@
         </div>
       </div>
     </div>
-    <NuxtLink
-      to="/me"
-      class="flex gap-2 bg-slate-300 p-2 rounded-md w-50 items-center hover:cursor-pointer"
-    >
-      <div class="w-8 h-8 rounded-full overflow-hidden">
-        <img
-          src="/favicon.ico"
-          alt="you"
-          class="object-contain bg-blue-200 "
-        >
-      </div>
-      <h3 class="text-gray-900">
-        Rojit
-        <span class="text-gray-700">
+    <div class="flex flex-col gap-4">
+      <NuxtLink
+        to="/profile"
+        aria-label="View Profile"
+        class="flex gap-2 bg-slate-300 p-2 rounded-md w-50 items-center hover:cursor-pointer"
+      >
+        <div class="w-8 h-8 rounded-full overflow-hidden">
+          <img
+            src="/favicon.ico"
+            alt="User"
+            class="object-contain bg-blue-200"
+          >
+        </div>
+        <h3 class="text-gray-900 align-middle">
+          Rojit
+        </h3>
+        <span class="text-gray-300 p-1 text-xs bg-black rounded-xl">
           pro
         </span>
-      </h3>
-    </NuxtLink>
+      </NuxtLink>
+      <client-only>
+        <button
+          class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          @click="logout"
+        >
+          Logout
+        </button>
+      </client-only>
+    </div>
   </main>
 </template>
 
@@ -124,6 +135,9 @@ function handleSubmit(e: MouseEvent) {
     return
   }
   mutate()
+}
+
+function logout() {
 }
 
 async function fetchStream(userInputForStream?: string) {

@@ -1,8 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint'],
+  // use if pure client side rendering
+  // hooks: {
+  //   'prerender:routes'({ routes }) {
+  //     routes.clear() // Do not generate any routes (except the defaults)
+  //   }
+  // },
   devtools: { enabled: true },
   css: [
+    '~/assets/css/main.css',
     '~/assets/css/style.css',
   ],
   runtimeConfig: {
@@ -33,10 +40,4 @@ export default defineNuxtConfig({
     viewer: true,
     // and more...
   },
-  // use if pure client side rendering
-  // hooks: {
-  //   'prerender:routes'({ routes }) {
-  //     routes.clear() // Do not generate any routes (except the defaults)
-  //   }
-  // },
 })

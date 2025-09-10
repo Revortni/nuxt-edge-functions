@@ -1,7 +1,45 @@
-@theme {
-  --spacing: 4px; 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sora;
+  }
+
+  h1 {
+    @apply text-headline-h1 font-headline-h1 leading-headline-h1;
+  }
+
+  h2 {
+    @apply text-headline-h2 font-headline-h2 leading-headline-h2;
+  }
+
+  h3 {
+    @apply text-headline-h3 font-headline-h3 leading-headline-h3;
+  }
+
+  p,
+  em,
+  strong {
+    @apply text-body-md font-body-md leading-body-md;
+  }
 }
 
-.dummy{
-  padding: 1px;
+@layer utilities {
+  .text-headline-h1 { font-size: var(--text-headline-h1); }
+  .font-headline-h1 { font-weight: var(--font-weight-headline-h1); }
+  .leading-headline-h1 { line-height: var(--spacing-headline-h1); }
+
+  .text-headline-h2 { font-size: var(--text-headline-h2); }
+  .font-headline-h2 { font-weight: var(--font-weight-headline-h2); }
+  .leading-headline-h2 { line-height: var(--spacing-headline-h2); }
+
+  .text-headline-h3 { font-size: var(--text-headline-h3); }
+  .font-headline-h3 { font-weight: var(--font-weight-headline-h3); }
+  .leading-headline-h3 { line-height: var(--spacing-headline-h3); }
+
+  .text-body-md { font-size: var(--text-body-md); }
+  .font-body-md { font-weight: var(--font-weight-body-md); }
+  .leading-body-md { line-height: var(--spacing-body-md); }
 }
