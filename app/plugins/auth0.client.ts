@@ -9,6 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       redirect_uri: import.meta.client ? window.location.origin : '',
     }, // Adjust for your redirect URI
     useRefreshTokens: true,
+    cacheLocation: 'localstorage',
   })
 
   nuxtApp.vueApp.use(auth0)
