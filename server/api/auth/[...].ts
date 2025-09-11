@@ -15,3 +15,5 @@ export default NuxtAuthHandler({
     }),
   ],
 })
+console.log(useRuntimeConfig().secret)
+console.log(useRuntimeConfig().authBaseURL)

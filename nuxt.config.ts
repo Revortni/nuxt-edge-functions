@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     secret: process.env.NUXT_AUTH_SECRET,
+    authBaseURL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/auth` : undefined,
     auth: {
       auth0: {
         clientId: process.env.NUXT_AUTH0_CLIENT_ID,
