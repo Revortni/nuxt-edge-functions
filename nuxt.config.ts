@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     secret: process.env.NUXT_AUTH_SECRET,
-    authBaseURL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/auth` : undefined,
+    baseURL: process.env.NUXT_BASE_ORIGIN ? `${process.env.NUXT_BASE_ORIGIN}/api/auth` : undefined,
     auth: {
       auth0: {
         clientId: process.env.NUXT_AUTH0_CLIENT_ID,
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   auth: {
     // You can generate one with `openssl rand -base64 32`
     secret: process.env.NUXT_AUTH_SECRET,
-    baseURL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/auth` : undefined,
+    baseURL: process.env.NUXT_BASE_ORIGIN ? `${process.env.NUXT_BASE_ORIGIN}/api/auth` : undefined,
     provider: {
       isEnabled: true,
       type: 'authjs',
@@ -49,4 +49,3 @@ export default defineNuxtConfig({
     // and more...
   },
 })
-console.log('AUTH_UR______________', process.env.VERCEL_URL)

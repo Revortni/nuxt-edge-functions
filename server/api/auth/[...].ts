@@ -17,6 +17,9 @@ export default NuxtAuthHandler({
   callbacks: {
     async redirect({ url, baseUrl }) {
       console.log('URLS im getting in redirect', url, baseUrl)
+      if (useRuntimeConfig().baseURL) {
+        return useRuntimeConfig().baseURL
+      }
       return baseUrl
     },
   },
