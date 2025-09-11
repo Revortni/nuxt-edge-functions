@@ -3,3 +3,11 @@
     <slot>Content</slot>
   </div>
 </template>
+
+<script setup lang="ts">
+const route = useRoute()
+const pageName = computed<string>(() => route.meta.title ?? 'App')
+useHead({
+  title: pageName,
+})
+</script>

@@ -1,21 +1,17 @@
 <template>
-  <div v-if="isLoading">
-    Loading profile data...
-  </div>
-  <div v-else>
-    <h2>User Profile</h2>
-    <pre v-if="isAuthenticated">
-        <code>{{ user }}</code>
-      </pre>
-  </div>
+  <UserProfile
+    :user="authUser"
+    :is-loading="isLoading"
+  />
 </template>
 
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue'
-
 definePageMeta({
   middleware: 'auth',
+  title: 'Your Profile',
 })
-const { user, isAuthenticated, isLoading } = import.meta.client ? useAuth0() : {}
-console.log({ user, isAuthenticated, isLoading })
+
+const { data, status } = useAuth()
+const authUser = computed(() => data.value?.user ?? null)
+const isLoading = computed(() => status.value === 'loading')
 </script>

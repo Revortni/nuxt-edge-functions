@@ -2,14 +2,14 @@
   <main class="p-8 flex  gap-4 justify-center items-start ml-29">
     <div class="text-gray-200 flex flex-col items-center font-sans">
       <div class="w-full max-w-2xl bg-gray-800 rounded-2xl p-6 shadow-2xl">
-        <div class="flex justify-between">
+        <div class="flex justify-between py-2">
           <h1 class="text-3xl font-bold mb-4 text-indigo-400">
             Streamed Data
           </h1>
           <select
             id="streamType"
             v-model="streamType"
-            class="bg-gray-700 text-white rounded-md h-10 px-2 py-2 ml-4 border border-gray-600"
+            class="bg-gray-700 text-white rounded-xl px-4 py-2 ml-4 border border-gray-600"
           >
             <option
               v-for="option in streamOptions"
@@ -34,7 +34,7 @@
           <button
             type="submit"
             :disabled="isPending"
-            class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            class="bg-indigo-600 whitespace-nowrap hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             @click="handleSubmit"
           >
             <span v-if="!isPending">Start Stream</span>
@@ -48,7 +48,7 @@
 
         <div
           ref="contentContainer"
-          class="flex bg-gray-700 h-[calc(65vh)] rounded-xl p-4 min-h-[200px] border border-gray-600 overflow-y-auto"
+          class="flex bg-gray-700 h-[calc(100vh-340px)] rounded-xl p-4 min-h-[200px] border border-gray-600 overflow-y-auto"
         >
           <template v-if="!content">
             <p
@@ -108,13 +108,12 @@
 import { ref } from 'vue'
 import { useMutation } from '@tanstack/vue-query'
 import type { StreamOptions } from '@/utils/http'
-import { useAuth0 } from '@auth0/auth0-vue'
 
 definePageMeta({
   middleware: 'auth',
+  title: 'Home',
 })
-const auth0 = import.meta.client ? useAuth0() : undefined
-
+const { signOut } = useAuth()
 const content = ref('')
 const contentContainer = ref()
 const streamOptions: StreamOptions[] = [
@@ -140,7 +139,7 @@ function handleSubmit(e: MouseEvent) {
 }
 
 function logout() {
-  auth0?.logout()
+  signOut()
 }
 
 async function fetchStream(userInputForStream?: string) {

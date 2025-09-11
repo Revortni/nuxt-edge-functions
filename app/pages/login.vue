@@ -6,23 +6,21 @@
         class="p-4 text-white bg-purple-900"
         @click="handleLogin"
       >
-        Log In
+        Login with Auth0
       </button>
     </client-only>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue'
+const { signIn } = useAuth()
 
-const auth0 = import.meta.client ? useAuth0() : undefined
 definePageMeta({
-  middleware: 'authenticated',
+  middleware: 'auth',
+  title: 'Login',
 })
 
 const handleLogin = () => {
-  if (auth0) {
-    auth0.loginWithRedirect()
-  }
+  signIn('auth0')
 }
 </script>
