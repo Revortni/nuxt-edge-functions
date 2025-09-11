@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     secret: process.env.NUXT_AUTH_SECRET,
-    baseURL: process.env.NUXT_BASE_ORIGIN ? `${process.env.NUXT_BASE_ORIGIN}/api/auth` : undefined,
+    baseOrigin: process.env.NUXT_BASE_ORIGIN ? `${process.env.NUXT_BASE_ORIGIN}/api/auth` : undefined,
     auth: {
       auth0: {
         clientId: process.env.NUXT_AUTH0_CLIENT_ID,
