@@ -30,7 +30,7 @@ export default defineNuxtConfig({
   auth: {
     // You can generate one with `openssl rand -base64 32`
     secret: process.env.NUXT_AUTH_SECRET,
-    baseURL: process.env.NUXT_PUBLIC_AUTH_ORIGIN,
+    baseURL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/auth` : 'http://localhost:3000/api/auth',
     provider: {
       isEnabled: true,
       type: 'authjs',
