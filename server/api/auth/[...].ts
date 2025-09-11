@@ -14,6 +14,10 @@ export default NuxtAuthHandler({
       },
     }),
   ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      console.log('URLS im getting in redirect', url, baseUrl)
+      return baseUrl
+    },
+  },
 })
-console.log(useRuntimeConfig().secret)
-console.log(useRuntimeConfig().authBaseURL)
