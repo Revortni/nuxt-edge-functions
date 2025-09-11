@@ -37,6 +37,7 @@ export default defineNuxtConfig({
       type: 'authjs',
       defaultProvider: 'auth0',
     },
+    globalAppMiddleware: true,
   },
   eslint: {
     config: {

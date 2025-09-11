@@ -14,8 +14,9 @@
 const { signIn } = useAuth()
 
 definePageMeta({
-  middleware: 'auth',
+  // middleware: 'auth',
   title: 'Login',
+  auth: false,
 })
 
 const handleLogin = () => {

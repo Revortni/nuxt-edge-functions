@@ -110,7 +110,7 @@ import { useMutation } from '@tanstack/vue-query'
 import type { StreamOptions } from '@/utils/http'
 
 definePageMeta({
-  middleware: 'auth',
+  // middleware: 'auth',
   title: 'Home',
 })
 const { signOut } = useAuth()
