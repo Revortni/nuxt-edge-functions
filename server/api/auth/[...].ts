@@ -3,7 +3,7 @@ import { NuxtAuthHandler } from '#auth'
 
 export default NuxtAuthHandler({
   // A secret string you define, to ensure correct encryption - NUXT_AUTH_SECRET required in production
-  secret: useRuntimeConfig().authSecret,
+  secret: useRuntimeConfig().secret,
   providers: [
     Auth0Provider.default({
       clientId: useRuntimeConfig().auth.auth0.clientId,
