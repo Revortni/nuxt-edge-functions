@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         issuer: `https://${process.env.NUXT_AUTH0_DOMAIN}`,
       },
     },
-    authOrigin: process.env.VERCEL ?? 'http://locahost:3000',
+    authOrigin: process.env.VERCEL_URL ?? 'http://locahost:3000',
   },
   routeRules: {
     '/': { prerender: true },
@@ -49,3 +49,4 @@ export default defineNuxtConfig({
     // and more...
   },
 })
+console.log('AUTH_UR______________', process.env.VERCEL_URL)
