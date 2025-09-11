@@ -17,8 +17,8 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/': { prerender: true },
-    '/profile': { ssr: false },
+    // '/': { prerender: true },
+    // '/profile': { ssr: false },
     // user dashboard renders only on client-side
     // '/me/**': { ssr: false },
     // Add cors headers on API routes
