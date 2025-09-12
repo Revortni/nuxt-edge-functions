@@ -1,5 +1,5 @@
 import { createReadStream } from 'fs'
-import { sleep } from '~~/server/_utils/time'
+import { sleep } from '~~/server/utils/time'
 
 export default defineEventHandler(() => {
   const filename = '/Users/rojitkhayargoli/Home/personal/edge-functions/edge-function/server/api/content.txt'

@@ -6,9 +6,7 @@ definePageMeta({
 
 <template>
   <Suspense>
-    <template #default>
-      <UserProfile />
-    </template>
+    <SuspendedComponent />
     <template #fallback>
       <div>Loading user profile...</div>
     </template>

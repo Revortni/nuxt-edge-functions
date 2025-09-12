@@ -1,10 +1,18 @@
 <template>
   <div class="flex flex-col items-center justify-center p-4 font-sans">
     <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-2xl">
-      <h1 class="text-3xl font-bold  text-gray-800 mb-6">
-        User Profile
-      </h1>
-      <div class=" mb-4 text-gray-600 text-sm">
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold  text-gray-800">
+          User Profile
+        </h1>
+        <button
+          class="text-gray-800 hover:underline"
+          @click="goBack"
+        >
+          Back
+        </button>
+      </div>
+      <div class="mb-4 text-gray-600 text-sm">
         Data shown below comes from the authenticated session.
       </div>
 
@@ -78,6 +86,10 @@ interface AuthUser {
 }
 
 const props = defineProps<{ user: AuthUser | null, isLoading: boolean }>()
+const router = useRouter()
+const goBack = () => {
+  router.back()
+}
 
 const initials = computed(() => {
   const source = props.user?.name || props.user?.email || ''
@@ -85,8 +97,7 @@ const initials = computed(() => {
     .replace(/@.*/, '')
     .split(/\s|\.|_|-/)
     .filter(Boolean)
-  const first = parts[0]?.[0] || ''
-  const second = parts[1]?.[0] || ''
+  const [first = '', second = ''] = parts
   return (first + second).toUpperCase() || 'U'
 })
 </script>

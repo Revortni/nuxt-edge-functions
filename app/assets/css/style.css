@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-sora text-white;
+    @apply font-sora text-white min-h-dvh;
   }
 
   h1 {
