@@ -18,6 +18,36 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
+    '/no-js': {
+      // NO js scripts
+      noScripts: true,
+    },
+    '/cached': {
+      cache: {
+        maxAge: 10,
+        swr: false,
+      },
+    },
+    '/cached/swr': {
+      cache: {
+        maxAge: 10,
+        swr: true,
+      },
+    },
+    '/prerender': {
+      // dynamically render at build time and create a static html
+      prerender: true,
+    },
+    '/static': {
+      // serve a static file
+      static: true,
+    },
+    '/isr': {
+      // Incremental static generation
+      // supported by vercel and netlify
+      // isr: true // equivalent to {static: true}
+      isr: 10, // equivalent to {maxAge: 10, swr: true}
+    },
     // '/': { prerender: true },
     // '/profile': { ssr: false },
     // user dashboard renders only on client-side
