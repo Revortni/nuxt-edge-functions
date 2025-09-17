@@ -42,12 +42,12 @@ export default defineNuxtConfig({
       // serve a static file
       static: true,
     },
-    '/isr': {
-      // Incremental static generation
-      // supported by vercel and netlify
-      // isr: true // equivalent to {static: true}
-      isr: 10, // equivalent to {maxAge: 10, swr: true}
-    },
+    // '/isr': {
+    //   // Incremental static generation
+    //   // supported by vercel and netlify
+    //   // isr: true // equivalent to {static: true}
+    //   isr: 10, // equivalent to {maxAge: 10, swr: true}
+    // },
     // '/': { prerender: true },
     // '/profile': { ssr: false },
     // user dashboard renders only on client-side
