@@ -2,7 +2,7 @@ import { getServerSession } from '#auth'
 
 export default eventHandler(async (event) => {
   console.log('Path', event.path)
-  if (event.path.startsWith('/api/auth') || event.path === '/' || event.path === '/login') {
+  if (event.path.startsWith('/api/auth') || event.path === '/' || event.path === '/login' || event.path.startsWith('/prerender')) {
     return
   }
   if (event.path.startsWith('/api/server-date')) {
