@@ -22,16 +22,16 @@ export default defineNuxtConfig({
       // NO js scripts
       noScripts: true,
     },
-    '/cached': {
-      cache: {
-        maxAge: 10,
-        swr: false,
-      },
-    },
     '/cached/swr': {
       cache: {
         maxAge: 10,
         swr: true,
+      },
+    },
+    '/cached': {
+      cache: {
+        maxAge: 10,
+        swr: false,
       },
     },
     '/prerender': {
