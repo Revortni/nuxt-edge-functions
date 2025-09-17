@@ -23,17 +23,14 @@ export default defineNuxtConfig({
       noScripts: true,
     },
     '/cached/swr': {
+      swr: 10,
+    },
+    '/cached': {
       cache: {
         maxAge: 10,
-        swr: true,
       },
+      swr: false,
     },
-    // '/cached': {
-    //   cache: {
-    //     maxAge: 10,
-    //     swr: false,
-    //   },
-    // },
     '/prerender': {
       // dynamically render at build time and create a static html
       prerender: true,
