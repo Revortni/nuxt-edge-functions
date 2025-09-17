@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "prebuild": "rm -rf .vercel/output",
+    "prebuild": "rm -rf /vercel/path0/.vercel/output",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
