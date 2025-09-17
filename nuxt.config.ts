@@ -28,12 +28,12 @@ export default defineNuxtConfig({
         swr: true,
       },
     },
-    '/cached': {
-      cache: {
-        maxAge: 10,
-        swr: false,
-      },
-    },
+    // '/cached': {
+    //   cache: {
+    //     maxAge: 10,
+    //     swr: false,
+    //   },
+    // },
     '/prerender': {
       // dynamically render at build time and create a static html
       prerender: true,
